@@ -15,3 +15,4 @@ public class InternetShopPagesTest {
     }
 
 }
+//comment ololo preved medved
