@@ -21,10 +21,10 @@ public class BaseFunc {
 
 
 
-//    public void openURL(String url) {
-//       if (!url.startsWith("http://") && !url.startsWith("https://")) {
-//         url = "http://" + url;
-//       }
+    public void openURL(String url) {
+       if (!url.startsWith("http://") && !url.startsWith("https://")) {
+         url = "http://" + url;
+       }
 
 //        if (url.startsWith("http://")|| url.startsWith("https://")) {
 //
@@ -33,7 +33,7 @@ public class BaseFunc {
 //
 //        }
 
-//        browser.get(url);
+        browser.get(url);
 
 
     public void click(By locator) {
