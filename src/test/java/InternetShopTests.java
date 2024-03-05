@@ -15,7 +15,6 @@ public class InternetShopTests {
     private final By ACCEPT_COOKIES_BTN = By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll");
     private final By MENU_ITEM = By.xpath(".//li[contains(@class, 'submenu-lvl1__list-item--has-child')]");
     private final By MENU = By.xpath(".//div[contains(@class, 'submenu-lvl2 submenu-lvl2--index')]");
-    private final String SECTION = "Mēbeles";
 
     @Test
     public void productPresenceInCartCheck() {
@@ -39,6 +38,7 @@ public class InternetShopTests {
 
         boolean isSectionFound = false;
         for (WebElement we : items) {
+            String SECTION = "Mēbeles";
             if (we.getText().equals(SECTION)) {
                 wait.until(ExpectedConditions.elementToBeClickable(we));
                 isSectionFound = true;
