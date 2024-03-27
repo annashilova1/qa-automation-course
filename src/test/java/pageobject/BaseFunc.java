@@ -1,5 +1,6 @@
 package pageobject;
 
+import org.checkerframework.checker.units.qual.K;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -58,9 +59,15 @@ public class BaseFunc {
        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
+
     public List<WebElement> findElements(By locator) {
         return browser.findElements(locator);
     }
+
+    public List<WebElement> findElements(WebElement parent, By locator) {
+        return wait.until(ExpectedConditions.visibilityOf(parent)).findElements(locator);
+    }
+
 
     public void scrollToElement(WebElement we) {
         executor.executeScript("arguments[0].scrollIntoView(true);", we);
@@ -70,6 +77,9 @@ public class BaseFunc {
     public void waitForText(By locator, String text) {
         wait.until(ExpectedConditions.textToBe(locator, text));
     }
+    public void waitForContainingText(By locator, String text) {
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
+}
 
     public void typeText(By locator, String text) {
         WebElement input = findElement(locator);
@@ -77,8 +87,23 @@ public class BaseFunc {
         input.sendKeys(text);
     }
 
+    public void typeTextInCustomField(By locator, String text) {
+        WebElement input = findElement(locator);
+        hardClick(input);
+
+        input.sendKeys(Keys.CONTROL + "a");
+        input.sendKeys(Keys.DELETE);
+
+        input.sendKeys(text);
+    }
+
     public void pressEnter(By locator) {
         findElement(locator).sendKeys(Keys.ENTER);
+    }
+
+    public String getText(WebElement parent, By locator) {
+        return  wait.until(ExpectedConditions.visibilityOf(parent)).findElement(locator).getText();
+
     }
 }
 

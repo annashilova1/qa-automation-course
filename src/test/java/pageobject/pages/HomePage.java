@@ -9,8 +9,9 @@ import java.util.List;
 
 public class HomePage {
     private final By ACCEPT_COOKIES_BTN = By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll");
-    private final By MENU_ITEM = By.xpath(".//li[contains(@class, 'submenu-lvl1__list-item--has-child')]");
+    private final By MENU_ITEM = By.xpath(".//li[contains(@class, 'submenu-lvl1__list-item--has-child')]/a");
     private final By MENU = By.xpath(".//div[contains(@class, 'submenu-lvl2 submenu-lvl2--index')]");
+    private final By REGISTRATION_BTN = By.xpath(".//div[@class = 'user-block__title']");
     private BaseFunc baseFunc;
 
 
@@ -24,7 +25,7 @@ public class HomePage {
 
     public void selectMenuItem(String menuItemName) {
         WebElement menuBlock = baseFunc.findElement(MENU);
-        List<WebElement> items = menuBlock.findElements(MENU_ITEM); // Must be refactored
+        List<WebElement> items = menuBlock.findElements(MENU_ITEM);
 
         boolean isSectionFound = false;
         for (WebElement we : items) {
@@ -37,6 +38,8 @@ public class HomePage {
 
         Assertions.assertTrue(isSectionFound,  "Cant find menu Item " + menuItemName);
     }
-
+public void openLoginPage() {
+        baseFunc.click(REGISTRATION_BTN);
+}
 
 }

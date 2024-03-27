@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class InternetShopTests {
     private final By ACCEPT_COOKIES_BTN = By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll");
-    private final By MENU_ITEM = By.xpath(".//li[contains(@class, 'submenu-lvl1__list-item--has-child')]");
-    private final By MENU = By.xpath(".//div[contains(@class, 'submenu-lvl2 submenu-lvl2--index')]");
+    private final By MENU_ITEM = By.xpath(".//a[contains(@class, 'submenu-lvl1__link')]");
+    private final By MENU = By.xpath(".//ul[contains(@class, 'submenu-lvl1__list')]");
 
     @Test
     public void productPresenceInCartCheck() {
@@ -23,12 +24,10 @@ public class InternetShopTests {
         browser.get("http://1a.lv");
 
         WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(5));
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(ACCEPT_COOKIES_BTN));
-
         //find element
         WebElement acceptBtn = browser.findElement(ACCEPT_COOKIES_BTN);
 
+        wait.until(ExpectedConditions.elementToBeClickable(acceptBtn));
         //click on this element
         acceptBtn.click();
 
@@ -39,10 +38,12 @@ public class InternetShopTests {
         boolean isSectionFound = false;
         for (WebElement we : items) {
             String SECTION = "Mēbeles";
-            if (we.getText().equals(SECTION)) {
-                wait.until(ExpectedConditions.elementToBeClickable(we));
+
+            String menuItemText = we.getAttribute("textContent").replaceAll("\n", "");
+            if (menuItemText.equals(SECTION)) {
+                new Actions(browser).moveToElement(we).click().build().perform();
+
                 isSectionFound = true;
-                we.click();
                 break;
             }
         }
