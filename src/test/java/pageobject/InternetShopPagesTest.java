@@ -27,6 +27,7 @@ public class InternetShopPagesTest {
             Assertions.assertTrue(price >= 25.0 && price <= 100.0, "Price mismatch");
         }
 
+
     }
 
 }
